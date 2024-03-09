@@ -1,6 +1,7 @@
 package utez.edu.mx.sigeu.model.role;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Generated;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Role {
 
 
     //relaciones
+    @JsonIgnoreProperties(value = {"usuario"})
     @OneToMany(mappedBy = "role",cascade = CascadeType.PERSIST)
     private List<Usuario> usuario;
 

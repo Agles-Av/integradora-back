@@ -40,11 +40,13 @@ public class AuthService {
                         true,
                         "EmailNotFound"
                 ), HttpStatus.NOT_FOUND);
+
             Usuario usuario = foundUser.get();
+            System.out.println(usuario);
             Authentication auth = manager.authenticate(
                     new UsernamePasswordAuthenticationToken(email,password)
             );
-            System.out.println("Authentication successful: " + auth.isAuthenticated());
+
             SecurityContextHolder.getContext().setAuthentication(auth);
             String token = provider.generateToke(auth);
 
@@ -53,7 +55,9 @@ public class AuthService {
                     new ApiResponse(signedDto, HttpStatus.OK),
                     HttpStatus.OK
             );
+
         }catch (Exception e){
+            e.printStackTrace();
             String message = "CredentialMismatch";
             if (e instanceof DisabledException)
                 message = "UserDisabled";

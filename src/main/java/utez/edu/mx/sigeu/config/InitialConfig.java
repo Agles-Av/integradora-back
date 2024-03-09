@@ -82,7 +82,7 @@ public class InitialConfig implements CommandLineRunner {
             Role newRole = roleRepository.findById(roleId).orElse(null);
             if (newRole != null) {
                 usuario.setRole(newRole);
-                userRepository.save(usuario); // Asegura que el Usuario esté en estado "managed"
+                userRepository.save(usuario);
             }
         }
     }

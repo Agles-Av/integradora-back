@@ -1,5 +1,6 @@
 package utez.edu.mx.sigeu.model.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,15 +30,6 @@ public class Person {
     @OneToOne(mappedBy = "person", cascade = CascadeType.PERSIST)
     private Usuario usuario;
 
-    public Person(Long id, String name, String lastname, String surname, String matricula, String curp, Usuario usuario) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.surname = surname;
-        this.matricula = matricula;
-        this.curp = curp;
-        this.usuario = usuario;
-    }
 
     public Person(String name, String lastname, String surname, String matricula, String curp) {
         this.name = name;
@@ -49,4 +41,5 @@ public class Person {
 
     public Person(Long id, String name, String lastname, String surname, String matricula, String curp) {
     }
+
 }
