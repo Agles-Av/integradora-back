@@ -15,13 +15,14 @@ public class UsuarioDto {
     private Long id;
     private String email;
     private String password;
+    private Boolean  status;
     private Role role;
     private Person person;
 
     public Usuario toEntity(){
         if (role == null || person == null)
-            return new Usuario(id,email,password);
-        return new Usuario(id,email,password,role,person);
+            return new Usuario(id,email,password,status);
+        return new Usuario(id,email,password,status,role,person);
 
     }
 

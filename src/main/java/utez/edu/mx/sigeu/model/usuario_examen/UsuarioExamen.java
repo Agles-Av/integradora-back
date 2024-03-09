@@ -28,11 +28,11 @@ public class UsuarioExamen {
 
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "id_usuario",unique = true)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_examen",unique = true)
+    @JoinColumn(name = "id_examen")
     private Examen examen;
 }

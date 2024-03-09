@@ -29,7 +29,7 @@ public class UserDetailsImpl implements UserDetails {
         Set<SimpleGrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(user.getRole().getName()));
 
         return new UserDetailsImpl(
-                user.getEmail(), user.getPassword(), !user.getStatus(), user.getStatus(), authorities
+                user.getEmail(), user.getPassword(), user.getStatus(), user.getStatus(), authorities
         );
     }
 

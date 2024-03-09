@@ -24,7 +24,7 @@ public class Respuesta {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_pregunta", unique = true)
+    @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
 
     @JsonIgnore

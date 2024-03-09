@@ -6,13 +6,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import utez.edu.mx.sigeu.config.ApiResponse;
+import utez.edu.mx.sigeu.model.person.Person;
 import utez.edu.mx.sigeu.model.person.PersonRepository;
+import utez.edu.mx.sigeu.model.role.Role;
 import utez.edu.mx.sigeu.model.role.RoleRepository;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 import utez.edu.mx.sigeu.model.usuario.UsuarioRepository;
 
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -42,6 +45,7 @@ public class UsuarioService {
 
     @Transactional(rollbackFor = {SQLException.class})
     public ResponseEntity<ApiResponse> save(Usuario usuario){
+        System.out.println(usuario.toString());
         Optional<Usuario> foundUsuario = usuarioRepository.findByEmail(usuario.getEmail());
         if (foundUsuario.isPresent())
             return new ResponseEntity<>(new ApiResponse(
@@ -49,9 +53,14 @@ public class UsuarioService {
                     true,
                     "EmailAlreadyExist"
             ),HttpStatus.BAD_REQUEST);
+
+
         usuario.setStatus(true);
+        usuario.getPerson().setUsuario(usuario);
+        usuario = usuarioRepository.saveAndFlush(usuario);
+
          return new ResponseEntity<>(new ApiResponse(
-                 usuarioRepository.saveAndFlush(usuario),
+                 usuario,
                  HttpStatus.OK
          ),HttpStatus.OK);
     }

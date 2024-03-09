@@ -25,16 +25,16 @@ public class RespuestaUsuario {
 
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "id_respuesta",unique = true)
+    @JoinColumn(name = "id_respuesta")
     private Respuesta respuesta;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_usuario",unique = true)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_pregunta", unique = true)
+    @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
 }

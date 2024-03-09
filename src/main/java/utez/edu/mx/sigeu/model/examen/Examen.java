@@ -38,12 +38,12 @@ public class Examen {
     //relaciones
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_clase",unique = true)
+    @JoinColumn(name = "id_clase")
     private Clase clase;
 
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "id_estado",unique = true)
+    @JoinColumn(name = "id_estado")
     private EstadoExamen examen;
 
     @JsonIgnore

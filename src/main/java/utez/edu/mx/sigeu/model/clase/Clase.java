@@ -26,7 +26,7 @@ public class Clase {
     //realciones
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_usuario",unique = true)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @JsonIgnore

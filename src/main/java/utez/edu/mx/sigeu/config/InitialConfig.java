@@ -31,20 +31,23 @@ public class InitialConfig implements CommandLineRunner {
         Role adminRole = getOrSaveRole(new Role("ADMIN_ROLE"));
         getOrSaveRole(new Role("DOCENTE_ROLE"));
         getOrSaveRole(new Role("ESTUDIANTE_ROLE"));
-        //Crear un usuario para que puedan iniciar sesión (person, user, user_role)
         Person person = getOrSavePerson(
                 new Person("Agles","Avelar","Ocampo","20223tn005","AEOA")
         );
         Usuario user = getOrSaveUser(
-                new Usuario("Agles",encoder.encode("agles"),person)
+                new Usuario("Agles",encoder.encode("agles"),true,person)
         );
         saveUserRoles(user.getId(), adminRole.getId());
     }
     @Transactional
     public Role getOrSaveRole(Role role) {
         Optional<Role> foundRole = roleRepository.findByName(role.getName());
-        return foundRole.orElseGet(() -> roleRepository.saveAndFlush(role));
+        return foundRole.orElseGet(() -> {
+            roleRepository.saveAndFlush(role);
+            return roleRepository.findByName(role.getName()).orElse(null);
+        });
     }
+
     @Transactional
     public Person getOrSavePerson(Person person) {
         Optional<Person> foundPerson = personRepository.findByCurp(person.getCurp());
@@ -53,8 +56,25 @@ public class InitialConfig implements CommandLineRunner {
     @Transactional
     public Usuario getOrSaveUser(Usuario user) {
         Optional<Usuario> foundUser = userRepository.findByEmail(user.getEmail());
-        return foundUser.orElseGet(() -> userRepository.saveAndFlush(user));
+        return foundUser.orElseGet(() -> {
+            Role userRole = user.getRole();
+            if (userRole != null) {
+                if (userRole.getId() == null) {
+                    userRole = getOrSaveRole(userRole);
+                }
+            }
+            Person userPerson = user.getPerson();
+            if (userPerson != null) {
+                if (userPerson.getId() == null) {
+                    userPerson = getOrSavePerson(userPerson);
+                }
+            }
+            user.setRole(userRole);
+            user.setPerson(userPerson);
+            return userRepository.saveAndFlush(user);
+        });
     }
+
     @Transactional
     public void saveUserRoles(Long userId, Long roleId) {
         Usuario usuario = userRepository.findById(userId).orElse(null);
@@ -62,10 +82,11 @@ public class InitialConfig implements CommandLineRunner {
             Role newRole = roleRepository.findById(roleId).orElse(null);
             if (newRole != null) {
                 usuario.setRole(newRole);
-                userRepository.save(usuario);
+                userRepository.save(usuario); // Asegura que el Usuario esté en estado "managed"
             }
         }
     }
+
 
 
 

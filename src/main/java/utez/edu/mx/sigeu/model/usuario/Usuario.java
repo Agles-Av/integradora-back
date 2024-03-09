@@ -1,6 +1,7 @@
 package utez.edu.mx.sigeu.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,48 +32,55 @@ public class Usuario {
     private Boolean status; //no usar
 
     //Relaciones
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "id_role", unique = true)
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    @JsonIgnoreProperties(value = {"usuario"})
     private Role role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties(value = {"usuario"})
     private List<Clase> clase;
 
     @JsonIgnore
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties(value = {"usuario"})
     private UsuarioExamen usuarioExamen;
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties(value = {"usuario"})
     private List<RespuestaUsuario> respuestaUsuarios;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "id_person",unique = true)
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_person")
+    @JsonIgnoreProperties(value = {"usuario"})
     private Person person;
 
     //constructores
 
-    public Usuario(Long id, String email, String password) {
+    public Usuario(Long id, String email, String password,boolean status) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.status = status;
     }
 
-    public Usuario(Long id, String email, String password, Role role, Person person) {
+    public Usuario(Long id, String email, String password, boolean status,Role role, Person person) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.status = status;
         this.role = role;
         this.person = person;
     }
 
-    public Usuario(String email, String password, Person person) {
+    public Usuario(String email, String password,boolean status, Person person) {
         this.email = email;
         this.password = password;
         this.person = person;
+        this.status = status;
     }
 
     public Usuario(String email, String password, Role role) {

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -23,8 +25,8 @@ public class Role {
 
 
     //relaciones
-    @OneToOne(mappedBy = "role", cascade = CascadeType.PERSIST)
-    private Usuario usuario;
+    @OneToMany(mappedBy = "role",cascade = CascadeType.PERSIST)
+    private List<Usuario> usuario;
 
     public Role(String name) {
         this.name = name;
