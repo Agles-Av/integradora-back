@@ -36,13 +36,13 @@ public class Examen {
     private String code;
 
     //relaciones
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "id_clase")
     private Clase clase;
 
-    @JsonIgnore
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "id_estado")
     private EstadoExamen examen;
 
@@ -54,4 +54,12 @@ public class Examen {
     @OneToMany(mappedBy = "examen", cascade = CascadeType.PERSIST)
     private List<Pregunta> preguntas;
 
+    public Examen(Long id, String title, String description, String code, Clase clase, EstadoExamen examen) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.code = code;
+        this.clase = clase;
+        this.examen = examen;
+    }
 }

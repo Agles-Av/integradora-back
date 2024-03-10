@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import utez.edu.mx.sigeu.model.examen.Examen;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -20,6 +22,11 @@ public class EstadoExamen {
     private String name_state;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "examen",cascade = CascadeType.PERSIST)
-    private Examen examen;
+    @OneToMany(mappedBy = "examen",cascade = CascadeType.PERSIST)
+    private List<Examen> examen;
+
+    public EstadoExamen(Long id, String name_state) {
+        this.id = id;
+        this.name_state = name_state;
+    }
 }
