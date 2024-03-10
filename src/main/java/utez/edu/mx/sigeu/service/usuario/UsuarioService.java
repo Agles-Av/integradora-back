@@ -2,20 +2,19 @@ package utez.edu.mx.sigeu.service.usuario;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import utez.edu.mx.sigeu.config.ApiResponse;
-import utez.edu.mx.sigeu.model.person.Person;
 import utez.edu.mx.sigeu.model.person.PersonRepository;
-import utez.edu.mx.sigeu.model.role.Role;
 import utez.edu.mx.sigeu.model.role.RoleRepository;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 import utez.edu.mx.sigeu.model.usuario.UsuarioRepository;
 
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -29,6 +28,7 @@ public class UsuarioService {
         this.personRepository = personRepository;
         this.roleRepository = roleRepository;
     }
+
 
     @Transactional(readOnly = true)
     public Optional<Usuario> findByEmail(String email){
@@ -54,9 +54,10 @@ public class UsuarioService {
                     "EmailAlreadyExist"
             ),HttpStatus.BAD_REQUEST);
 
-
         usuario.setStatus(true);
         usuario.getPerson().setUsuario(usuario);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        usuario.setPassword(encoder.encode(usuario.getPassword()));
         usuario = usuarioRepository.saveAndFlush(usuario);
 
          return new ResponseEntity<>(new ApiResponse(

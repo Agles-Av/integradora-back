@@ -1,5 +1,6 @@
 package utez.edu.mx.sigeu.security.service;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Transactional
 public class UserDetailsServiceImpl
         implements UserDetailsService {
+
     private final UsuarioService service;
 
     public UserDetailsServiceImpl(UsuarioService service) {

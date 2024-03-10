@@ -67,6 +67,7 @@ public class MainSecurity {
                         req.requestMatchers(WHITE_LIST).permitAll()
                                 .requestMatchers("/api/usuario/**").hasAnyAuthority("ADMIN_ROLE")
                                 .requestMatchers("/api/person/**").hasAnyAuthority("ADMIN_ROLE")
+
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

@@ -52,10 +52,8 @@ public class Usuario {
     @JsonIgnoreProperties(value = {"usuario"})
     private List<RespuestaUsuario> respuestaUsuarios;
 
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_person")
-    @JsonIgnoreProperties(value = {"usuario"})
     private Person person;
 
     //constructores
@@ -89,18 +87,5 @@ public class Usuario {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", status=" + status +
-                ", role=" + role +
-                ", clase=" + clase +
-                ", usuarioExamen=" + usuarioExamen +
-                ", respuestaUsuarios=" + respuestaUsuarios +
-                ", person=" + person +
-                '}';
-    }
+
 }
