@@ -43,9 +43,9 @@ public class Usuario {
     private List<Clase> clase;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties(value = {"usuario"})
-    private UsuarioExamen usuarioExamen;
+    private List<UsuarioExamen> usuarioExamen;
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.PERSIST)

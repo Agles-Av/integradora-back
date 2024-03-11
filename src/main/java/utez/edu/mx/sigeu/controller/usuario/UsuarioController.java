@@ -10,6 +10,7 @@ import utez.edu.mx.sigeu.service.usuario.UsuarioService;
 
 @Controller
 @RequestMapping("/api/usuario")
+@CrossOrigin(origins = {"*"})
 public class UsuarioController {
     private final UsuarioService usuarioService;
 

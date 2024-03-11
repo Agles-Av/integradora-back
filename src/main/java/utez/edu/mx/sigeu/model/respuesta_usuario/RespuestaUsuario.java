@@ -20,21 +20,30 @@ public class RespuestaUsuario {
     private Long id;
     @Column
     private boolean correcta;
-    @Column(length = 128,nullable = false)
+    @Column(length = 128)
     private String description;
 
-    @JsonIgnore
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "id_respuesta")
     private Respuesta respuesta;
 
-    @JsonIgnore
+  
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
+
+    public RespuestaUsuario(Long id, boolean correcta, String description, Respuesta respuesta, Usuario usuario, Pregunta pregunta) {
+        this.id = id;
+        this.correcta = correcta;
+        this.description = description;
+        this.respuesta = respuesta;
+        this.usuario = usuario;
+        this.pregunta = pregunta;
+    }
 }

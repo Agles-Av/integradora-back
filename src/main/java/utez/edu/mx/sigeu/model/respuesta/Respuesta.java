@@ -8,6 +8,8 @@ import lombok.Setter;
 import utez.edu.mx.sigeu.model.pregunta.Pregunta;
 import utez.edu.mx.sigeu.model.respuesta_usuario.RespuestaUsuario;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -17,7 +19,7 @@ public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 50,nullable = false)
+    @Column(length = 256,nullable = false)
     private String nombre;
     @Column
     private boolean correcta;
@@ -28,6 +30,13 @@ public class Respuesta {
     private Pregunta pregunta;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "respuesta", cascade = CascadeType.PERSIST)
-    private RespuestaUsuario respuestaUsuario;
+    @OneToMany(mappedBy = "respuesta", cascade = CascadeType.PERSIST)
+    private List<RespuestaUsuario> respuestaUsuario;
+
+    public Respuesta(Long id, String nombre, boolean correcta, Pregunta pregunta) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correcta = correcta;
+        this.pregunta = pregunta;
+    }
 }

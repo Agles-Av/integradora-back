@@ -26,13 +26,21 @@ public class UsuarioExamen {
     @Max(value = 10, message = "La calificación no puede ser mayor que 10")
     private int calificacion;
 
-    @JsonIgnore
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "id_examen")
     private Examen examen;
+
+    public UsuarioExamen(Long id, boolean respondido, int calificacion, Usuario usuario, Examen examen) {
+        this.id = id;
+        this.respondido = respondido;
+        this.calificacion = calificacion;
+        this.usuario = usuario;
+        this.examen = examen;
+    }
 }

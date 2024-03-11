@@ -25,12 +25,12 @@ public class Pregunta {
     @Column
     private boolean tipo;
 
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_examen")
     private Examen examen;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.PERSIST)
     private List<Respuesta> respuestas;
 
@@ -38,6 +38,10 @@ public class Pregunta {
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.PERSIST)
     private List<RespuestaUsuario> respuestaUsuario;
 
-
-
+    public Pregunta(Long id, String name, boolean tipo, Examen examen) {
+        this.id = id;
+        this.name = name;
+        this.tipo = tipo;
+        this.examen = examen;
+    }
 }

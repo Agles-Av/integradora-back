@@ -50,7 +50,7 @@ public class Examen {
     @OneToMany(mappedBy = "examen", cascade = CascadeType.PERSIST)
     private List<UsuarioExamen> usuarioExamen;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "examen", cascade = CascadeType.PERSIST)
     private List<Pregunta> preguntas;
 
