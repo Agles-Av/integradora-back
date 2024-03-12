@@ -28,7 +28,7 @@ public class RespuestaUsuario {
     @JoinColumn(name = "id_respuesta")
     private Respuesta respuesta;
 
-  
+
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;

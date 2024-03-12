@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import utez.edu.mx.sigeu.config.ApiResponse;
 import utez.edu.mx.sigeu.model.examen.Examen;
 import utez.edu.mx.sigeu.model.examen.ExamenRepository;
+import utez.edu.mx.sigeu.model.person.Person;
+import utez.edu.mx.sigeu.model.usuario.Usuario;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -35,7 +38,11 @@ public class ExamenService {
     public ResponseEntity<ApiResponse> register (Examen examen){
         LocalDateTime now = LocalDateTime.now();
         examen.setCreatedAt(now);
-
+        examen.setCode(RandomTwoLetter());
+        Optional<Examen> foundExamen = repository.findByCode(examen.getCode());
+        if (foundExamen.isEmpty()){
+            examen.setCode(RandomTwoLetter());
+        }
         return new ResponseEntity<>(new ApiResponse(
                 repository.saveAndFlush(examen),
                 HttpStatus.OK
@@ -51,7 +58,6 @@ public class ExamenService {
                     true,
                     "IdNotFound"
             ),HttpStatus.BAD_REQUEST);
-
         return new ResponseEntity<>(new ApiResponse(
                 repository.findById(id),
                 HttpStatus.OK
@@ -72,6 +78,34 @@ public class ExamenService {
                 repository.findById(id),
                 HttpStatus.OK
         ),HttpStatus.OK);
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<ApiResponse> findByCode(String code){
+       Optional<Examen> foundExamen = repository.findByCode(code);
+       if (foundExamen.isEmpty())
+           return new ResponseEntity<>(new ApiResponse(
+                   HttpStatus.NOT_FOUND,
+                   true,
+                   "IdCodeNotFoundedExamen"
+           ),HttpStatus.NOT_FOUND);
+       return new ResponseEntity<>(new ApiResponse(
+               repository.findByCode(code),
+               HttpStatus.OK
+       ),HttpStatus.OK);
+    }
+
+    public String RandomTwoLetter(){
+        String tmp = "ABCDEFGHIJKLMNOPKRSTUVWXYZ123456789";
+
+        Random random = new Random();
+        return tmp.charAt(random.nextInt(tmp.length())) +
+                "" + tmp.charAt(random.nextInt(tmp.length()))
+                + "" +tmp.charAt(random.nextInt(tmp.length()))
+                + "" +tmp.charAt(random.nextInt(tmp.length()))
+                + "" +tmp.charAt(random.nextInt(tmp.length()))
+                + "" +tmp.charAt(random.nextInt(tmp.length()))
+                ;
     }
 
 
