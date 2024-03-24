@@ -39,5 +39,8 @@ public class ExamenController {
         return service.detele(id);
     }
 
-
+    @PostMapping("/{code}")
+    public ResponseEntity<ApiResponse> foundByCode (@PathVariable String code){
+        return service.findByCode(code);
+    }
 }

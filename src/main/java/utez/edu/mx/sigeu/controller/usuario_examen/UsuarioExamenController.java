@@ -37,4 +37,9 @@ public class UsuarioExamenController {
     public ResponseEntity<ApiResponse> deleteById (@PathVariable Long id){
         return service.deleteById(id);
     }
+
+    @GetMapping("/examen/{idUsuario}")
+    public ResponseEntity<ApiResponse> findExamenById(@PathVariable Long idUsuario){
+        return service.findAllByIdUser(idUsuario);
+    }
 }

@@ -24,9 +24,10 @@ public class ExamenDto {
     private String code;
     private Clase clase;
     private EstadoExamen examen;
+    private List<Pregunta> preguntas;
 
 
     public Examen toEntity(){
-        return new Examen(id,title,description,code,clase,examen);
+        return new Examen(id,title,description,code,clase,examen,preguntas);
     }
 }

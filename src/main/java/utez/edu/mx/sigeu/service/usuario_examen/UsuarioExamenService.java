@@ -10,6 +10,7 @@ import utez.edu.mx.sigeu.model.usuario_examen.UsuarioExamen;
 import utez.edu.mx.sigeu.model.usuario_examen.UsuarioExamenRepository;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,21 @@ public class UsuarioExamenService {
 
     public UsuarioExamenService(UsuarioExamenRepository repository) {
         this.repository = repository;
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<ApiResponse> findAllByIdUser(Long id){
+        List<UsuarioExamen> foundExamen = repository.findAllByUsuario_Id(id);
+        if (foundExamen.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.NOT_FOUND,
+                    true,
+                    "No Hay Examanes aún"
+            ),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ApiResponse(
+                repository.findAllByUsuario_Id(id),
+                HttpStatus.OK
+        ),HttpStatus.OK);
     }
 
     @Transactional(readOnly = true)

@@ -54,12 +54,13 @@ public class Examen {
     @OneToMany(mappedBy = "examen", cascade = CascadeType.PERSIST)
     private List<Pregunta> preguntas;
 
-    public Examen(Long id, String title, String description, String code, Clase clase, EstadoExamen examen) {
+    public Examen(Long id, String title, String description, String code, Clase clase, EstadoExamen examen, List<Pregunta> preguntas) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.code = code;
         this.clase = clase;
         this.examen = examen;
+        this.preguntas = preguntas;
     }
 }
