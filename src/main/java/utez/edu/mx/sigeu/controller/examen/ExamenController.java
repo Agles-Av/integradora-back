@@ -34,7 +34,7 @@ public class ExamenController {
         return service.findById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/d/{id}")
     public ResponseEntity<ApiResponse> deleteById(@PathVariable Long id){
         return service.detele(id);
     }

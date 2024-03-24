@@ -73,10 +73,11 @@ public class ExamenService {
                     true,
                     "IdNotFound"
             ),HttpStatus.BAD_REQUEST);
-
+        repository.deleteById(id);
         return new ResponseEntity<>(new ApiResponse(
-                repository.findById(id),
-                HttpStatus.OK
+                HttpStatus.OK,
+                false,
+                "Examen Eliminado"
         ),HttpStatus.OK);
     }
 
