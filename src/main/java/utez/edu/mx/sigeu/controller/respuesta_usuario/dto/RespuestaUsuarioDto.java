@@ -19,7 +19,7 @@ public class RespuestaUsuarioDto {
     private Long id;
     private boolean correcta;
     private String description;
-    private Respuesta respuesta;
+   private Respuesta respuesta;
     private Usuario usuario;
     private Pregunta pregunta;
 

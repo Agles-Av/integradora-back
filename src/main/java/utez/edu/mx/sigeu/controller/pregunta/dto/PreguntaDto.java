@@ -19,9 +19,10 @@ public class PreguntaDto {
     private String name;
     private boolean tipo;
     private Examen examen;
+    private List<Respuesta>respuestas;
 
 
     public Pregunta toEntity(){
-        return new Pregunta(id,name,tipo,examen);
+        return new Pregunta(id,name,tipo,examen,respuestas);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import utez.edu.mx.sigeu.config.ApiResponse;
+import utez.edu.mx.sigeu.model.respuesta.Respuesta;
+import utez.edu.mx.sigeu.model.respuesta.RespuestaRepository;
 import utez.edu.mx.sigeu.model.respuesta_usuario.RespuestaUsuario;
 import utez.edu.mx.sigeu.model.respuesta_usuario.RespuestaUsuarioRepository;
 
@@ -17,9 +19,11 @@ import java.util.Optional;
 @Transactional
 public class RespuestaUsuarioService {
     private final RespuestaUsuarioRepository repository;
+    private final RespuestaRepository respuestaRepository;
 
-    public RespuestaUsuarioService(RespuestaUsuarioRepository repository) {
+    public RespuestaUsuarioService(RespuestaUsuarioRepository repository, RespuestaRepository respuestaRepository) {
         this.repository = repository;
+        this.respuestaRepository = respuestaRepository;
     }
 
     @Transactional(readOnly = true)
@@ -47,6 +51,15 @@ public class RespuestaUsuarioService {
 
     @Transactional(rollbackFor = {SQLDataException.class})
     public ResponseEntity<ApiResponse> save (RespuestaUsuario usuario){
+       if (usuario.getPregunta().isTipo()){
+           Respuesta respuesta = respuestaRepository.findRespuestaCorrectaByPreguntaId(usuario.getPregunta().getId());
+              if (respuesta.getId() == usuario.getRespuesta().getId()) {
+                  usuario.setCorrecta(true);
+              }else {
+                  usuario.setCorrecta(false);
+              }
+       }
+
         return new ResponseEntity<>(new ApiResponse(
                 repository.saveAndFlush(usuario),
                 HttpStatus.OK
@@ -68,4 +81,13 @@ public class RespuestaUsuarioService {
                 false,"UsuarioEliminado"
         ),HttpStatus.OK);
     }
+
+    @Transactional(readOnly = true)
+    public  ResponseEntity<ApiResponse> findExamenHecho (Long id){
+        return new ResponseEntity<>(new ApiResponse(
+                repository.findExamenCodesByUsuario(id),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
+
 }

@@ -9,6 +9,8 @@ import utez.edu.mx.sigeu.config.ApiResponse;
 import utez.edu.mx.sigeu.model.examen.Examen;
 import utez.edu.mx.sigeu.model.examen.ExamenRepository;
 import utez.edu.mx.sigeu.model.person.Person;
+import utez.edu.mx.sigeu.model.pregunta.Pregunta;
+import utez.edu.mx.sigeu.model.respuesta.Respuesta;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 
 import java.sql.SQLException;
@@ -35,19 +37,30 @@ public class ExamenService {
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public ResponseEntity<ApiResponse> register (Examen examen){
+    public ResponseEntity<ApiResponse> register(Examen examen){
         LocalDateTime now = LocalDateTime.now();
         examen.setCreatedAt(now);
         examen.setCode(RandomTwoLetter());
+
+        // Asegurar que cada pregunta esté asociada con este examen y cada respuesta con su pregunta.
+        for (Pregunta pregunta : examen.getPreguntas()) {
+            pregunta.setExamen(examen); // Asociar el examen a la pregunta
+            for (Respuesta respuesta : pregunta.getRespuestas()) {
+                respuesta.setPregunta(pregunta); // Asociar la pregunta a la respuesta
+            }
+        }
+
         Optional<Examen> foundExamen = repository.findByCode(examen.getCode());
         if (foundExamen.isEmpty()){
             examen.setCode(RandomTwoLetter());
         }
+        // Ahora al guardar el examen, JPA debería persistir las preguntas y respuestas con las claves foráneas correctas
         return new ResponseEntity<>(new ApiResponse(
                 repository.saveAndFlush(examen),
                 HttpStatus.OK
         ),HttpStatus.OK);
     }
+
 
     @Transactional(readOnly = true)
     public ResponseEntity<ApiResponse> findById(@PathVariable Long id){

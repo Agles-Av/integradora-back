@@ -38,10 +38,11 @@ public class Pregunta {
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.PERSIST)
     private List<RespuestaUsuario> respuestaUsuario;
 
-    public Pregunta(Long id, String name, boolean tipo, Examen examen) {
+    public Pregunta(Long id, String name, boolean tipo, Examen examen,List<Respuesta> respuestas) {
         this.id = id;
         this.name = name;
         this.tipo = tipo;
         this.examen = examen;
+        this.respuestas =respuestas;
     }
 }
