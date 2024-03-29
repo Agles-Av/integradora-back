@@ -38,9 +38,18 @@ public class UsuarioRespuestaController {
         return new ResponseEntity<>(new ApiResponse("Respuestas guardadas correctamente", HttpStatus.OK), HttpStatus.OK);
     }
 
-    @GetMapping("/examenHecho/{id}")
+    @GetMapping("/examencode/{id}")
     public ResponseEntity<ApiResponse> examenHecho(@PathVariable Long id){
         return service.findExamenHecho(id);
     }
 
+    @GetMapping("/respuestas/{id}")
+    public ResponseEntity<ApiResponse> findRespuestaByIdUsuario(@PathVariable Long id){
+        return service.findRespuestaByIdUsuario(id);
+    }
+
+    @GetMapping("/CorrectaRes/{idusuario}/{examenid}")
+    public ResponseEntity<ApiResponse> findRespuestaByUsuarioAndExamen(@PathVariable Long idusuario, @PathVariable Long examenid){
+        return service.findCorrectaRespuestaByUserIdAndEaxamenId(idusuario, examenid);
+    }
 }

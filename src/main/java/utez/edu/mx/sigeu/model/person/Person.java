@@ -50,5 +50,10 @@ public class Person {
         this.curp = curp;
     }
 
-
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

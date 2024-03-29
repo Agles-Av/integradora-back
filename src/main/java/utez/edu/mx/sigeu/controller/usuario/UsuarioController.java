@@ -28,7 +28,7 @@ public class UsuarioController {
         return usuarioService.save(usuarioDto.toEntity());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
         return usuarioService.delete(id);
     }

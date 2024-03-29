@@ -16,4 +16,14 @@ public interface RespuestaUsuarioRepository extends JpaRepository<RespuestaUsuar
             "WHERE respuesta_usuario.id_usuario = :idUsuario",
             nativeQuery = true)
     List<String> findExamenCodesByUsuario(@Param("idUsuario") Long idUsuario);
+
+    @Query(value = "select * from respuesta_usuario where id_usuario = :idUSer",nativeQuery = true)
+    List<RespuestaUsuario> findRespuestaByIdUsuario (@Param("idUSer") Long idUSer );
+
+    @Query(value = "SELECT ru.correcta FROM respuesta_usuario ru " +
+            "JOIN pregunta p ON ru.id_pregunta = p.id " +
+            "JOIN examen e ON p.id_examen = e.id " +
+            "WHERE ru.id_usuario = :idusuario AND e.id = :examenid", nativeQuery = true)
+    List<Boolean> findRespuestaByUsuarioAndExamen(@Param("idusuario") Long idusuario, @Param("examenid") Long examenid);
+
 }
