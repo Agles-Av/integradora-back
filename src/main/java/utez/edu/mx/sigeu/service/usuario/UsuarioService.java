@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import utez.edu.mx.sigeu.config.ApiResponse;
+import utez.edu.mx.sigeu.model.person.Person;
 import utez.edu.mx.sigeu.model.person.PersonRepository;
 import utez.edu.mx.sigeu.model.role.RoleRepository;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
@@ -67,8 +68,9 @@ public class UsuarioService {
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> delete(Long id){
         Optional<Usuario> foundPerson = usuarioRepository.findById(id);
+        System.out.println("personDelete"+foundPerson.toString());
         if (foundPerson.isEmpty())
             return new ResponseEntity<>(new ApiResponse(
                     HttpStatus.BAD_REQUEST,

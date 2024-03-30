@@ -90,4 +90,20 @@ public class RespuestaUsuarioService {
         ),HttpStatus.OK);
     }
 
+    @Transactional(readOnly = true)
+    public ResponseEntity<ApiResponse> findRespuestaByIdUsuario(@PathVariable Long idUsuario){
+        return new ResponseEntity<>(new ApiResponse(
+                repository.findRespuestaByIdUsuario(idUsuario),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<ApiResponse> findCorrectaRespuestaByUserIdAndEaxamenId( Long idUsuario,  Long idExamen){
+        return new ResponseEntity<>(new ApiResponse(
+                repository.findRespuestaByUsuarioAndExamen(idUsuario, idExamen),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
+
 }
