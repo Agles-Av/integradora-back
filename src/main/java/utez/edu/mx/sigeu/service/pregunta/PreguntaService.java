@@ -9,6 +9,7 @@ import utez.edu.mx.sigeu.config.ApiResponse;
 import utez.edu.mx.sigeu.model.examen.Examen;
 import utez.edu.mx.sigeu.model.pregunta.Pregunta;
 import utez.edu.mx.sigeu.model.pregunta.PreguntaRepository;
+import utez.edu.mx.sigeu.model.respuesta.Respuesta;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -33,6 +34,9 @@ public class PreguntaService {
 
     @Transactional(rollbackFor = {SQLException.class})
     public ResponseEntity<ApiResponse> register (Pregunta pregunta){
+        for (Respuesta respuesta : pregunta.getRespuestas()) {
+            respuesta.setPregunta(pregunta); // Asociar la pregunta a la respuesta
+        }
         return new ResponseEntity<>(new ApiResponse(
                 repository.saveAndFlush(pregunta),
                 HttpStatus.OK
