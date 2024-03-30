@@ -35,7 +35,7 @@ public class InitialConfig implements CommandLineRunner {
                 new Person("Agles","Avelar","Ocampo","20223tn005","AEOA")
         );
         Usuario user = getOrSaveUser(
-                new Usuario("Agles",encoder.encode("agles"),true,person)
+                new Usuario("Agles",encoder.encode("agles"),true, person)
         );
         saveUserRoles(user.getId(), adminRole.getId());
     }

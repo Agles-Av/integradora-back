@@ -43,6 +43,7 @@ public class ExamenService {
         examen.setCode(RandomTwoLetter());
 
         // Asegurar que cada pregunta esté asociada con este examen y cada respuesta con su pregunta.
+
         for (Pregunta pregunta : examen.getPreguntas()) {
             pregunta.setExamen(examen); // Asociar el examen a la pregunta
             for (Respuesta respuesta : pregunta.getRespuestas()) {

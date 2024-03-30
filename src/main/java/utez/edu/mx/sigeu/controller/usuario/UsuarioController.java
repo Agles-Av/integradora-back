@@ -37,4 +37,6 @@ public class UsuarioController {
     public ResponseEntity<ApiResponse> findById(@PathVariable Long id){
         return usuarioService.findById(id);
     }
+
+
 }
