@@ -19,14 +19,19 @@ public class EstadoExamen {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 40,nullable = false)
-    private String name_state;
+    private String name;
 
     @JsonIgnore
     @OneToMany(mappedBy = "examen",cascade = CascadeType.PERSIST)
     private List<Examen> examen;
 
-    public EstadoExamen(Long id, String name_state) {
+    public EstadoExamen( String name) {
+
+        this.name = name;
+    }
+
+    public EstadoExamen(Long id, String name) {
         this.id = id;
-        this.name_state = name_state;
+        this.name = name;
     }
 }

@@ -31,7 +31,10 @@ public class InitialConfig implements CommandLineRunner {
     @Override
     @Transactional(rollbackFor = {SQLException.class})
     public void run(String... args) throws Exception {
-        EstadoExamen estadoExamen = new EstadoExamen();
+        EstadoExamen estadoExamen = saveEstadoExamen(new EstadoExamen("Listo"));
+        EstadoExamen estadoExamen1 = saveEstadoExamen(new EstadoExamen("Pendiente"));
+        EstadoExamen estadoExamen2 = saveEstadoExamen(new EstadoExamen("No publicado"));
+        EstadoExamen estadoExamen3 = saveEstadoExamen(new EstadoExamen("Activo"));
 
         Role adminRole = getOrSaveRole(new Role("ADMIN_ROLE"));
         getOrSaveRole(new Role("DOCENTE_ROLE"));
@@ -43,6 +46,12 @@ public class InitialConfig implements CommandLineRunner {
                 new Usuario("Agles",encoder.encode("agles"),true, person)
         );
         saveUserRoles(user.getId(), adminRole.getId());
+
+        saveEstadoExamen(estadoExamen);
+        saveEstadoExamen(estadoExamen1);
+        saveEstadoExamen(estadoExamen2);
+        saveEstadoExamen(estadoExamen3);
+
     }
     @Transactional
     public Role getOrSaveRole(Role role) {
@@ -93,11 +102,9 @@ public class InitialConfig implements CommandLineRunner {
     }
 
     @Transactional
-    public void saveEstadoExamen(EstadoExamen examen){
-        Optional<EstadoExamen> foundExamen = estadoExamenRepository.findById(examen.getId());
-        if (foundExamen.isEmpty()){
-            estadoExamenRepository.saveAndFlush(examen);
-        }
+    public EstadoExamen saveEstadoExamen(EstadoExamen estadoExamen){
+        Optional<EstadoExamen> foundEstadoExamen = estadoExamenRepository.findByName(estadoExamen.getName());
+        return foundEstadoExamen.orElseGet(() -> estadoExamenRepository.saveAndFlush(estadoExamen));
     }
 
 

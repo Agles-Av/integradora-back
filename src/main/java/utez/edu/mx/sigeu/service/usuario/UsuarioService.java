@@ -68,7 +68,7 @@ public class UsuarioService {
     }
 
     @Transactional(rollbackFor = {SQLException.class})
-    public ResponseEntity<ApiResponse> delete(Long id){
+    public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
         Optional<Usuario> foundPerson = usuarioRepository.findById(id);
         System.out.println("personDelete"+foundPerson.toString());
         if (foundPerson.isEmpty())
@@ -77,7 +77,8 @@ public class UsuarioService {
                     true,
                     "IdNotFound"
             ),HttpStatus.BAD_REQUEST);
-        usuarioRepository.deleteById(id);
+
+        usuarioRepository.deleteById(foundPerson.get().getId());
         return new ResponseEntity<>(new ApiResponse(
                 HttpStatus.OK,
                 true,

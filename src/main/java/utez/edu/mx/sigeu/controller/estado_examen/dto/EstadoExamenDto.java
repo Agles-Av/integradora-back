@@ -10,9 +10,9 @@ import utez.edu.mx.sigeu.model.estado_examen.EstadoExamen;
 @NoArgsConstructor
 public class EstadoExamenDto {
     private Long id;
-    private String name_state;
+    private String name;
 
     public EstadoExamen toEntity(){
-        return new EstadoExamen(id,name_state);
+        return new EstadoExamen(id,name);
     }
 }

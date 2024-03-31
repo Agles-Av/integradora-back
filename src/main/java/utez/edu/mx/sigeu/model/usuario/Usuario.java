@@ -52,7 +52,7 @@ public class Usuario {
     @JsonIgnoreProperties(value = {"usuario"})
     private List<RespuestaUsuario> respuestaUsuarios;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_person")
     private Person person;
 
