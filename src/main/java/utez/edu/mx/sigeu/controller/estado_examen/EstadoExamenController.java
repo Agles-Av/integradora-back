@@ -28,4 +28,9 @@ public class EstadoExamenController {
     public ResponseEntity<ApiResponse> register(@Valid @RequestBody EstadoExamenDto dto){
         return service.registe(dto.toEntity());
     }
+
+    @PutMapping("/changeStatus/{idExamen}/{id}")
+    public ResponseEntity<ApiResponse> changeState(@PathVariable Long idExamen, @PathVariable Long id){
+        return service.changeState(idExamen, id);
+    }
 }

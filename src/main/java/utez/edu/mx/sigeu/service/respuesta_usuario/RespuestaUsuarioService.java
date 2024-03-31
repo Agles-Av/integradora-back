@@ -51,12 +51,16 @@ public class RespuestaUsuarioService {
 
     @Transactional(rollbackFor = {SQLDataException.class})
     public ResponseEntity<ApiResponse> save (RespuestaUsuario usuario){
+
+
        if (usuario.getPregunta().isTipo()){
            Respuesta respuesta = respuestaRepository.findRespuestaCorrectaByPreguntaId(usuario.getPregunta().getId());
               if (respuesta.getId() == usuario.getRespuesta().getId()) {
                   usuario.setCorrecta(true);
+                  System.out.println("Respuesta correcta");
               }else {
                   usuario.setCorrecta(false);
+                    System.out.println("Respuesta incorrecta");
               }
        }
 

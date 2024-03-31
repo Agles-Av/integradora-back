@@ -46,4 +46,13 @@ public class RespuestaUsuario {
         this.usuario = usuario;
         this.pregunta = pregunta;
     }
+
+    @Override
+    public String toString() {
+        return "RespuestaUsuario{" +
+                "id=" + id +
+                ", respuesta=" + respuesta +
+                ", pregunta=" + pregunta +
+                '}';
+    }
 }

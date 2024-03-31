@@ -52,4 +52,6 @@ public class UsuarioRespuestaController {
     public ResponseEntity<ApiResponse> findRespuestaByUsuarioAndExamen(@PathVariable Long idusuario, @PathVariable Long examenid){
         return service.findCorrectaRespuestaByUserIdAndEaxamenId(idusuario, examenid);
     }
+
+
 }

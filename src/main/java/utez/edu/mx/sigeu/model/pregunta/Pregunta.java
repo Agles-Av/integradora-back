@@ -45,4 +45,11 @@ public class Pregunta {
         this.examen = examen;
         this.respuestas =respuestas;
     }
+
+    @Override
+    public String toString() {
+        return "Pregunta{" +
+                "id=" + id +
+                '}';
+    }
 }

@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import utez.edu.mx.sigeu.model.estado_examen.EstadoExamen;
+import utez.edu.mx.sigeu.model.estado_examen.EstadoExamenRepository;
 import utez.edu.mx.sigeu.model.person.Person;
 import utez.edu.mx.sigeu.model.person.PersonRepository;
 import utez.edu.mx.sigeu.model.role.Role;
@@ -23,11 +25,14 @@ public class InitialConfig implements CommandLineRunner {
     private final PersonRepository personRepository;
     private final UsuarioRepository userRepository;
     private final PasswordEncoder encoder;
+    private final EstadoExamenRepository   estadoExamenRepository;
 
 
     @Override
     @Transactional(rollbackFor = {SQLException.class})
     public void run(String... args) throws Exception {
+        EstadoExamen estadoExamen = new EstadoExamen();
+
         Role adminRole = getOrSaveRole(new Role("ADMIN_ROLE"));
         getOrSaveRole(new Role("DOCENTE_ROLE"));
         getOrSaveRole(new Role("ESTUDIANTE_ROLE"));
@@ -87,7 +92,13 @@ public class InitialConfig implements CommandLineRunner {
         }
     }
 
-
+    @Transactional
+    public void saveEstadoExamen(EstadoExamen examen){
+        Optional<EstadoExamen> foundExamen = estadoExamenRepository.findById(examen.getId());
+        if (foundExamen.isEmpty()){
+            estadoExamenRepository.saveAndFlush(examen);
+        }
+    }
 
 
 }

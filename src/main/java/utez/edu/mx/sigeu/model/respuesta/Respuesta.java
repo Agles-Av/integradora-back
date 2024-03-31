@@ -39,4 +39,12 @@ public class Respuesta {
         this.correcta = correcta;
         this.pregunta = pregunta;
     }
+
+    @Override
+    public String toString() {
+        return "Respuesta{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

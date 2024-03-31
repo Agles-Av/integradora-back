@@ -73,4 +73,19 @@ public class ClaseService {
         ),HttpStatus.OK);
     }
 
+    @Transactional(rollbackFor = {SQLException.class})
+    public ResponseEntity<ApiResponse> update(@RequestBody Clase clase){
+        Optional<Clase> findById = claseRepository.findById(clase.getId());
+        if (findById.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.BAD_REQUEST,
+                    true,
+                    "IdNotFound"
+            ),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ApiResponse(
+                claseRepository.save(clase),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
+
 }
