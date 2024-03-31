@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import utez.edu.mx.sigeu.config.ApiResponse;
 import utez.edu.mx.sigeu.controller.respuesta_usuario.dto.RespuestaUsuarioDto;
+import utez.edu.mx.sigeu.model.respuesta_usuario.RespuestaUsuario;
 import utez.edu.mx.sigeu.service.respuesta_usuario.RespuestaUsuarioService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @CrossOrigin(origins = {"*"})
@@ -33,10 +35,13 @@ public class UsuarioRespuestaController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ApiResponse> save(@Valid @RequestBody List<RespuestaUsuarioDto> dtos){
-        dtos.forEach(dto -> service.save(dto.toEntity()));
-        return new ResponseEntity<>(new ApiResponse("Respuestas guardadas correctamente", HttpStatus.OK), HttpStatus.OK);
+    public ResponseEntity<ApiResponse> save(@Valid @RequestBody List<RespuestaUsuarioDto> dtos) {
+        // Convertir DTOs a entidades
+        List<RespuestaUsuario> respuestas = dtos.stream().map(RespuestaUsuarioDto::toEntity).collect(Collectors.toList());
+        // Pasar la lista completa de respuestas al servicio
+        return service.save(respuestas);
     }
+
 
     @GetMapping("/examencode/{id}")
     public ResponseEntity<ApiResponse> examenHecho(@PathVariable Long id){

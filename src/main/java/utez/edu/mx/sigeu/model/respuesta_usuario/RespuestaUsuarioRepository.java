@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,4 +27,9 @@ public interface RespuestaUsuarioRepository extends JpaRepository<RespuestaUsuar
             "WHERE ru.id_usuario = :idusuario AND e.id = :examenid", nativeQuery = true)
     List<Boolean> findRespuestaByUsuarioAndExamen(@Param("idusuario") Long idusuario, @Param("examenid") Long examenid);
 
+    @Query(value = "select examen.id from examen " +
+            "Join pregunta ON pregunta.id_examen = examen.id " +
+            "JOIN respuesta_usuario ON pregunta.id = respuesta_usuario.id_pregunta " +
+            "WHERE id_usuario = :idUser", nativeQuery = true)
+    Optional<Long> findExamenByIdUser(@Param("idUser") Long idUser);
 }

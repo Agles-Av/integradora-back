@@ -9,6 +9,8 @@ import utez.edu.mx.sigeu.model.pregunta.Pregunta;
 import utez.edu.mx.sigeu.model.respuesta.Respuesta;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -23,13 +25,12 @@ public class RespuestaUsuario {
     @Column(length = 128)
     private String description;
 
-
     @ManyToOne
     @JoinColumn(name = "id_respuesta")
     private Respuesta respuesta;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 

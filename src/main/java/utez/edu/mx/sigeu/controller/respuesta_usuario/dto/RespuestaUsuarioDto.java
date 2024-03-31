@@ -10,6 +10,7 @@ import utez.edu.mx.sigeu.model.respuesta.Respuesta;
 import utez.edu.mx.sigeu.model.respuesta_usuario.RespuestaUsuario;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
