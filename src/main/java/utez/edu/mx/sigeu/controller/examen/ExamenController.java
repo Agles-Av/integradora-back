@@ -43,4 +43,9 @@ public class ExamenController {
     public ResponseEntity<ApiResponse> foundByCode (@PathVariable String code){
         return service.findByCode(code);
     }
+
+    @PutMapping("/")
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody ExamenDto dto){
+        return service.update(dto.toEntity());
+    }
 }

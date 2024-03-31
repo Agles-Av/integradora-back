@@ -100,5 +100,20 @@ public class UsuarioService {
         ),HttpStatus.OK);
     }
 
+    @Transactional(rollbackFor = {SQLException.class})
+    public ResponseEntity<ApiResponse> update(Usuario usuario){
+        Optional<Usuario> foundUser = usuarioRepository.findById(usuario.getId());
+        if (foundUser.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.BAD_REQUEST,
+                    true,
+                    "UsuarioNotFound"
+            ),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ApiResponse(
+                usuarioRepository.save(usuario),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
+
 
 }

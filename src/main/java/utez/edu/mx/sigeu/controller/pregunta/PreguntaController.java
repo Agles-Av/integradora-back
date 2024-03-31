@@ -38,4 +38,9 @@ public class PreguntaController {
     public  ResponseEntity<ApiResponse> deleteById (@PathVariable Long id){
         return service.deleteById(id);
     }
+
+    @PutMapping("/")
+    public  ResponseEntity<ApiResponse> update (@Valid @RequestBody PreguntaDto dto){
+        return service.update(dto.toEntity());
+    }
 }

@@ -38,5 +38,8 @@ public class UsuarioController {
         return usuarioService.findById(id);
     }
 
-
+    @PutMapping("/")
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody UsuarioDto usuarioDto){
+        return usuarioService.update(usuarioDto.toEntity());
+    }
 }

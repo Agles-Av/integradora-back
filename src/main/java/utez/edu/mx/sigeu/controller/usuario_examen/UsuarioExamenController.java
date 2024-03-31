@@ -42,4 +42,9 @@ public class UsuarioExamenController {
     public ResponseEntity<ApiResponse> findExamenById(@PathVariable Long idUsuario){
         return service.findAllByIdUser(idUsuario);
     }
+
+    @PutMapping("/")
+    public ResponseEntity<ApiResponse> update (@Valid @RequestBody UsuarioExamenDto dto){
+        return service.update(dto.toEntity());
+    }
 }

@@ -39,4 +39,9 @@ public class ClaseController {
     public ResponseEntity<ApiResponse> deleteById(@PathVariable Long id){
         return service.delete(id);
     }
+
+    @PutMapping("/")
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody ClaseDto claseDto){
+        return service.update(claseDto.toEntity());
+    }
 }

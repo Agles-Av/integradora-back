@@ -84,4 +84,19 @@ public class UsuarioExamenService {
                 "UsuarioEliminado"
         ),HttpStatus.OK);
     }
+
+    @Transactional(rollbackFor = {SQLException.class})
+    public ResponseEntity<ApiResponse> update(UsuarioExamen usuarioExamen){
+        Optional<UsuarioExamen> foundUsuarioExamen = repository.findById(usuarioExamen.getId());
+        if (foundUsuarioExamen.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.NOT_FOUND,
+                    false,
+                    "IdNotFound"
+            ),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ApiResponse(
+                repository.save(usuarioExamen),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
 }

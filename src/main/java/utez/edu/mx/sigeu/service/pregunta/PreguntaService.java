@@ -77,4 +77,20 @@ public class PreguntaService {
         ),HttpStatus.OK);
     }
 
+    @Transactional(rollbackFor = {SQLException.class})
+    public ResponseEntity<ApiResponse> update(Pregunta pregunta){
+        Optional<Pregunta> foundPregunta = repository.findById(pregunta.getId());
+        if (foundPregunta.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.NOT_FOUND,
+                    true,
+                    "IdNotFound"
+            ),HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(new ApiResponse(
+                repository.save(pregunta),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
+
 }

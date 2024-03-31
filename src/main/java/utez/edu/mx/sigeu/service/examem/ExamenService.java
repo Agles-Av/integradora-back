@@ -123,5 +123,19 @@ public class ExamenService {
                 ;
     }
 
+    @Transactional(rollbackFor = {SQLException.class})
+    public ResponseEntity<ApiResponse> update(Examen examen){
+        Optional<Examen> foundExamen = repository.findById(examen.getId());
+        if (foundExamen.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.NOT_FOUND,
+                    true,
+                    "IdNotFound"
+            ),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ApiResponse(
+                repository.save(examen),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
 
 }
