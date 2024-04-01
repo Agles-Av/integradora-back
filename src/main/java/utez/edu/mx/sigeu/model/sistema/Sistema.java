@@ -20,4 +20,19 @@ public class Sistema {
     private String color2;
     @Column(nullable = false,length = 15)
     private String color3;
+
+
+    public Sistema(Long id, String color1, String color2, String color3) {
+        this.id = id;
+        this.color1 = color1;
+        this.color2 = color2;
+        this.color3 = color3;
+    }
+
+    public Sistema(String color1, String color2, String color3) {
+        this.color1 = color1;
+        this.color2 = color2;
+        this.color3 = color3;
+    }
+
 }
