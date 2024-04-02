@@ -176,4 +176,43 @@ public class RespuestaUsuarioService {
         return (int) resultado;
     }
 
+    @Transactional(rollbackFor = {SQLDataException.class})
+    public ResponseEntity<ApiResponse> update(List<RespuestaUsuario> respuestas) {
+        int correctas = 0;
+        int incorrectas = 0;
+        Usuario usuario = null;
+        Examen examen = null;
+
+        for (RespuestaUsuario respuestaUsuario : respuestas) {
+            usuario = respuestaUsuario.getUsuario();
+            Respuesta respuestaCorrecta = respuestaRepository.findRespuestaCorrectaByPreguntaId(respuestaUsuario.getPregunta().getId());
+
+            if (respuestaUsuario.getPregunta().isTipo()) {
+                if (respuestaCorrecta != null && respuestaCorrecta.getId().equals(respuestaUsuario.getRespuesta().getId())) {
+                    respuestaUsuario.setCorrecta(true);
+                    correctas++;
+                } else {
+                    respuestaUsuario.setCorrecta(false);
+                    incorrectas++;
+                }
+            }
+
+            repository.save(respuestaUsuario);
+        }
+        if (usuario != null) {
+            Optional<Long> foundExamenUserId = repository.findExamenByIdUser(usuario.getId());
+            if (foundExamenUserId.isPresent()) {
+                Optional<Examen> foundExamen = examenRepository.findById(foundExamenUserId.get());
+                if (foundExamen.isPresent()) {
+                    examen = foundExamen.get();
+                }
+            }
+        }
+        if (usuario != null && examen != null) {
+            saveInUsuarioExamen(usuario, examen, correctas, incorrectas);
+        }
+
+        return new ResponseEntity<>(new ApiResponse("Respuestas guardadas correctamente", HttpStatus.OK), HttpStatus.OK);
+    }
+
 }

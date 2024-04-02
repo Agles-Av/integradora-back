@@ -58,5 +58,13 @@ public class UsuarioRespuestaController {
         return service.findCorrectaRespuestaByUserIdAndEaxamenId(idusuario, examenid);
     }
 
+    @PutMapping("/")
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody List<RespuestaUsuarioDto> dtos) {
+        // Convertir DTOs a entidades
+        List<RespuestaUsuario> respuestas = dtos.stream().map(RespuestaUsuarioDto::toEntity).collect(Collectors.toList());
+        // Pasar la lista completa de respuestas al servicio
+        return service.save(respuestas);
+    }
+
 
 }
