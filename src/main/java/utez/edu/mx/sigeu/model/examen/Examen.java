@@ -26,6 +26,8 @@ public class Examen {
     private Long id;
     @Column(length = 50, nullable = false)
     private String  title;
+    @Column
+    private int numeroPreguntas;
     @Column(length = 120, nullable = false)
     private String description;
     @Temporal(TemporalType.TIMESTAMP)
@@ -54,13 +56,16 @@ public class Examen {
     @OneToMany(mappedBy = "examen", cascade = CascadeType.PERSIST)
     private List<Pregunta> preguntas;
 
-    public Examen(Long id, String title, String description, String code, Clase clase, EstadoExamen examen, List<Pregunta> preguntas) {
+    public Examen(Long id, String title, String description, String code,int numeroPreguntas, Clase clase, EstadoExamen examen, List<Pregunta> preguntas) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.code = code;
+        this.numeroPreguntas = numeroPreguntas;
         this.clase = clase;
         this.examen = examen;
         this.preguntas = preguntas;
     }
+
+
 }
