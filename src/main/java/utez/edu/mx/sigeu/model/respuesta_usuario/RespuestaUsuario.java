@@ -29,7 +29,7 @@ public class RespuestaUsuario {
     private Respuesta respuesta;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 

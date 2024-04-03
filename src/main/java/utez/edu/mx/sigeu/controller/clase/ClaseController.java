@@ -40,7 +40,7 @@ public class ClaseController {
         return service.delete(id);
     }
 
-    @PutMapping("/")
+    @PutMapping("/{id}")
     public ResponseEntity<ApiResponse> update(@Valid @RequestBody ClaseDto claseDto){
         return service.update(claseDto.toEntity());
     }
