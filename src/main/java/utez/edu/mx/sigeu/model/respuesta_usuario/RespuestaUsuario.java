@@ -9,6 +9,8 @@ import utez.edu.mx.sigeu.model.pregunta.Pregunta;
 import utez.edu.mx.sigeu.model.respuesta.Respuesta;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -22,7 +24,6 @@ public class RespuestaUsuario {
     private boolean correcta;
     @Column(length = 128)
     private String description;
-
 
     @ManyToOne
     @JoinColumn(name = "id_respuesta")

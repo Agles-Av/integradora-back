@@ -10,6 +10,8 @@ import lombok.Setter;
 import utez.edu.mx.sigeu.model.examen.Examen;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -25,6 +27,9 @@ public class UsuarioExamen {
     @Min(value = 0, message = "La calificación no puede ser menor que 0")
     @Max(value = 10, message = "La calificación no puede ser mayor que 10")
     private int calificacion;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    private LocalDateTime endAt;
 
 
     @ManyToOne
@@ -36,10 +41,19 @@ public class UsuarioExamen {
     @JoinColumn(name = "id_examen")
     private Examen examen;
 
-    public UsuarioExamen(Long id, boolean respondido, int calificacion, Usuario usuario, Examen examen) {
+    public UsuarioExamen(Long id, boolean respondido, int calificacion,Usuario usuario, Examen examen,LocalDateTime endAt) {
         this.id = id;
         this.respondido = respondido;
         this.calificacion = calificacion;
+        this.usuario = usuario;
+        this.examen = examen;
+        this.endAt = endAt;
+    }
+
+    public UsuarioExamen(boolean respondido, int calificacion, LocalDateTime endAt, Usuario usuario, Examen examen) {
+        this.respondido = respondido;
+        this.calificacion = calificacion;
+        this.endAt = endAt;
         this.usuario = usuario;
         this.examen = examen;
     }

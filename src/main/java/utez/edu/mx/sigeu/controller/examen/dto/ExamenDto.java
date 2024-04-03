@@ -22,12 +22,13 @@ public class ExamenDto {
     private String  title;
     private String description;
     private String code;
+    private int numeroPreguntas;
     private Clase clase;
     private EstadoExamen examen;
     private List<Pregunta> preguntas;
 
 
     public Examen toEntity(){
-        return new Examen(id,title,description,code,clase,examen,preguntas);
+        return new Examen(id,title,description,code,numeroPreguntas,clase,examen,preguntas);
     }
 }

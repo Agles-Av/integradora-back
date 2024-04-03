@@ -28,6 +28,7 @@ public class Person {
     @Column(length = 20,nullable = false,unique = true)
     private String curp;
 
+
     @JsonIgnore
     @OneToOne(mappedBy = "person", cascade = CascadeType.PERSIST)
     private Usuario usuario;

@@ -14,6 +14,8 @@ import utez.edu.mx.sigeu.model.examen.Examen;
 import utez.edu.mx.sigeu.model.usuario.Usuario;
 import utez.edu.mx.sigeu.model.usuario_examen.UsuarioExamen;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @Setter
 @Getter
@@ -23,9 +25,9 @@ public class UsuarioExamenDto {
     private int calificacion;
     private Usuario usuario;
     private Examen examen;
-
+    private LocalDateTime endAt;
     public UsuarioExamen toEntity(){
-        return new UsuarioExamen(id,respondido,calificacion,usuario,examen);
+        return new UsuarioExamen(id,respondido,calificacion,usuario,examen,endAt);
     }
 
 
