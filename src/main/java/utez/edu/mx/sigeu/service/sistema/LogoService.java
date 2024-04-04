@@ -9,6 +9,7 @@ import utez.edu.mx.sigeu.model.logo.Logo;
 import utez.edu.mx.sigeu.model.logo.LogoORepository;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -37,6 +38,14 @@ public class LogoService {
 
     @Transactional(rollbackFor = {SQLException.class})
     public ResponseEntity<ApiResponse> update(Logo logoO){
+        Optional<Logo> foundId = logoORepository.findById(logoO.getId());
+        if (foundId.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.BAD_REQUEST,
+                    true,
+                    "RecordNotFound"
+            ),HttpStatus.BAD_REQUEST);
+        foundId.get().setLogo(logoO.getLogo());
         return new ResponseEntity<>(new ApiResponse(
                 logoORepository.save(logoO),
                 HttpStatus.OK

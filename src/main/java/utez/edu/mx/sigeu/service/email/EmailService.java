@@ -9,6 +9,8 @@ import org.thymeleaf.context.Context;
 import utez.edu.mx.sigeu.controller.email.dto.EmailDto;
 import utez.edu.mx.sigeu.model.email.EmailRepositorio;
 
+import java.util.Optional;
+
 @Service
 public class EmailService implements EmailRepositorio {
 
@@ -22,6 +24,7 @@ public class EmailService implements EmailRepositorio {
 
     @Override
     public void sendEmail(EmailDto emailDto) {
+
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
