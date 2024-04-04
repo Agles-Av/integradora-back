@@ -116,5 +116,22 @@ public class UsuarioService {
         ),HttpStatus.OK);
     }
 
+    @Transactional(rollbackFor = {SQLException.class})
+    public ResponseEntity<ApiResponse> changeStatus (Long id){
+        Optional<Usuario> foundUser = usuarioRepository.findById(id);
+        if (foundUser.isEmpty())
+            return new ResponseEntity<>(new ApiResponse(
+                    HttpStatus.BAD_REQUEST,
+                    true,
+                    "UsuarioNotFound"
+            ),HttpStatus.BAD_REQUEST);
+        Usuario usuario = foundUser.get();
+        usuario.setStatus(!usuario.getStatus());
+        return new ResponseEntity<>(new ApiResponse(
+                usuarioRepository.save(usuario),
+                HttpStatus.OK
+        ),HttpStatus.OK);
+    }
+
 
 }
