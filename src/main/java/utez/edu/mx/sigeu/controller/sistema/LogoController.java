@@ -28,7 +28,7 @@ public class LogoController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<ApiResponse> update(LogoDto dto){
+    public ResponseEntity<ApiResponse> update(@RequestBody LogoDto dto){
         return service.update(dto.toEntity());
     }
 
