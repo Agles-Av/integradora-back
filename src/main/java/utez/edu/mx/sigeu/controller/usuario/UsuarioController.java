@@ -42,4 +42,9 @@ public class UsuarioController {
     public ResponseEntity<ApiResponse> update(@Valid @RequestBody UsuarioDto usuarioDto){
         return usuarioService.update(usuarioDto.toEntity());
     }
+
+    @PatchMapping("/changeStatus/{id}")
+    public ResponseEntity<ApiResponse> changeStatus(@PathVariable Long id){
+        return usuarioService.changeStatus(id);
+    }
 }

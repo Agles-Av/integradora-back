@@ -34,10 +34,10 @@ public class EmailService implements EmailRepositorio {
 
             // Procesar la plantilla Thymeleaf
             Context context = new Context();
-            context.setVariable("Profesor", emailDto.getProfesor());
-            context.setVariable("clase", emailDto.getClase());
-            context.setVariable("nombreExamen", emailDto.getExamen());
-            context.setVariable("calificacion", emailDto.getCalificacion());
+            context.setVariable("Profesor", emailDto.getExamen().getExamen().getClase().getUsuario().getPerson().getName());
+            context.setVariable("clase", emailDto.getExamen().getExamen().getClase().getName());
+            context.setVariable("nombreExamen", emailDto.getExamen().getExamen().getTitle());
+            context.setVariable("calificacion", emailDto.getExamen().getCalificacion());
             String contenidoHtml = templateEngine.process("email", context);
 
             helper.setText(contenidoHtml, true);
