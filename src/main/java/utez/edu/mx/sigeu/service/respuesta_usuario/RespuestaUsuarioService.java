@@ -16,6 +16,7 @@ import utez.edu.mx.sigeu.model.usuario.Usuario;
 import utez.edu.mx.sigeu.model.usuario_examen.UsuarioExamen;
 import utez.edu.mx.sigeu.model.usuario_examen.UsuarioExamenRepository;
 
+import javax.swing.text.html.Option;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -84,11 +85,12 @@ public class RespuestaUsuarioService {
             repository.save(respuestaUsuario);
         }
         if (usuario != null) {
-            Optional<Long> foundExamenUserId = repository.findExamenByIdUser(usuario.getId());
-            if (foundExamenUserId.isPresent()) {
-                Optional<Examen> foundExamen = examenRepository.findById(foundExamenUserId.get());
+            System.out.println(usuario);
+            List<Long> foundExamUserId = repository.findExamenByIdUser(usuario.getId());
+            for (Long examenUserId:foundExamUserId){
+                Optional<Examen> foundExamen = examenRepository.findById(examenUserId);
                 if (foundExamen.isPresent()) {
-                    examen = foundExamen.get();
+                        examen = foundExamen.get();
                 }
             }
         }

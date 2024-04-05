@@ -44,7 +44,7 @@ public class ExamenController {
         return service.findByCode(code);
     }
 
-    @PutMapping("/")
+    @PutMapping("/{id}")
     public ResponseEntity<ApiResponse> update(@Valid @RequestBody ExamenDto dto){
         return service.update(dto.toEntity());
     }
