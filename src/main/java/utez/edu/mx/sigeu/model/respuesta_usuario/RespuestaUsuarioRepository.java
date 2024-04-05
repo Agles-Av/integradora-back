@@ -33,5 +33,5 @@ public interface RespuestaUsuarioRepository extends JpaRepository<RespuestaUsuar
             "Join pregunta ON pregunta.id_examen = examen.id " +
             "JOIN respuesta_usuario ON pregunta.id = respuesta_usuario.id_pregunta " +
             "WHERE id_usuario = :idUser", nativeQuery = true)
-    Optional<Long> findExamenByIdUser(@Param("idUser") Long idUser);
+    List<Long> findExamenByIdUser(@Param("idUser") Long idUser);
 }
