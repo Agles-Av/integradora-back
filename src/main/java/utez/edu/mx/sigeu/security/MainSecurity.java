@@ -26,7 +26,8 @@ import utez.edu.mx.sigeu.security.service.UserDetailsServiceImpl;
 public class MainSecurity {
 
     private final String[] WHITE_LIST = {
-            "/api/auth/**"
+            "/api/auth/**",
+            "/api/publico/**"
     };
     private final UserDetailsServiceImpl service;
 
@@ -67,7 +68,6 @@ public class MainSecurity {
                         req.requestMatchers(WHITE_LIST).permitAll()
                                 .requestMatchers("/api/usuario/**").hasAnyAuthority("ADMIN_ROLE","ESTUDIANTE_ROLE","DOCENTE_ROLE")
                                 .requestMatchers("/api/person/**").hasAnyAuthority("ADMIN_ROLE","ESTUDIANTE_ROLE","DOCENTE_ROLE")
-
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

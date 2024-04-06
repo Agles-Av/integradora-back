@@ -8,7 +8,7 @@ import utez.edu.mx.sigeu.controller.sistema.dto.LogoDto;
 import utez.edu.mx.sigeu.service.sistema.LogoService;
 
 @Controller
-@RequestMapping("/api/logo")
+@RequestMapping("/api/publico/logo")
 @CrossOrigin(origins = {"*"})
 public class LogoController {
     private final LogoService service;

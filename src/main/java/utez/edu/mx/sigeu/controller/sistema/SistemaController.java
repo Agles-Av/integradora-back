@@ -8,7 +8,7 @@ import utez.edu.mx.sigeu.controller.sistema.dto.ColoresDto;
 import utez.edu.mx.sigeu.service.sistema.SistemaService;
 
 @Controller
-@RequestMapping("/api/sistema")
+@RequestMapping("/api/publico/sistema")
 @CrossOrigin(origins = {"*"})
 public class SistemaController {
     private final SistemaService service;
